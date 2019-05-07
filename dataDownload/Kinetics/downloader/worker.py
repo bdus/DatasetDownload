@@ -8,27 +8,40 @@ youtube-dl -o 1.mp4 -f mp4 https://www.youtube.com/watch?v=--6bJUbfpnQ
 '''
 
 def download_job(youtube_id,
-    path,
-	num_attempts=5,
-    url_base='https://www.youtube.com/watch?v='):    
-    path = os.path.join(path,''.join([youtube_id,".mp4"]) )
+    path0,
+	num_attempts=1,
+    url_base='https://www.youtube.com/watch?v='):  
+    path = os.path.join(path0 ,''.join([youtube_id,".mp4"]) )
+    path1 = os.path.join('G:\\video_cls\\downloadhere\\tr400',''.join([youtube_id,".mp4"]) )
+    path2 = os.path.join('D:\\video\\tr400' ,''.join([youtube_id,".mp4"]) )
+    if os.path.exists(path1) == True:
+        #print (path1)
+        return True
+    if os.path.exists(path2) == True:
+        #print (path2)
+        return True
     if os.path.exists(path) == True:
-        print path
+        #print (path)
         return True
     #print path
-    command = ['youtube-dl',
-               '--quiet', '--no-warnings',
+    
+    command = ['youtube-dl',               
                '-f', 'mp4',
                '-o', path,
                '"%s"' % (url_base + youtube_id)]
     command = ' '.join(command)
-    # print(command)
+    print(command)
     #print command
     attempts = 0
     while True:
         try:
             output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as err:
+            print(youtube_id)
+            fo = open("bad_video.log","a")
+            fo.write(youtube_id)
+            fo.write("\n")
+            fo.close()
             attempts += 1
             if attempts == num_attempts:
                 return False#status, err.output
