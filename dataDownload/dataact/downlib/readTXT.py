@@ -19,10 +19,11 @@ def readTXTSet(filename):
 if __name__ == '__main__':
     file = '../act100.txt'
     if os.path.exists(file) == True:
-        #print len(readTXTSet(file))
         records = readTXTSet(file)
-        print(len(records))
+        print len(records)
+        #print(len(records))
         tmp = records.pop()
         records.add(tmp)
-        print(tmp)
+        print tmp
+        #print(tmp)
     

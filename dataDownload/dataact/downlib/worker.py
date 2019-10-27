@@ -87,6 +87,6 @@ def workjob(youtubeid,path):
         del_job(youtubeid)
 
 if __name__ == '__main__':
-    path = 'act100'
+    path = 'tmp'
     youtubeid = '--6bJUbfpnQ'
     workjob(youtubeid,path)
