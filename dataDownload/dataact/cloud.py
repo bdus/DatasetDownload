@@ -9,10 +9,10 @@ Created on Fri Oct 18 17:30:54 2019
 import argparse
 import os
 
-from lib.JsonLoader import readJsonSet
-from lib.readCSV import readCSVSet
-from lib.readTXT import readTXTSet
-from lib.worker import workjob
+from downlib.JsonLoader import readJsonSet
+from downlib.readCSV import readCSVSet
+from downlib.readTXT import readTXTSet
+from downlib.worker import workjob
 
 '''
 conda activate videodl
