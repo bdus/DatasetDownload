@@ -15,25 +15,19 @@ def download_job(youtube_id,
     url_base='https://www.youtube.com/watch?v='):  
     path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )
     
-    #if os.path.exists(path) == True:
-        #print (path)
-        #return True
-    #print path
-    
     command = ['youtube-dl',               
                '-f', 'mp4',
                '-o', path,
                '"%s"' % (url_base + youtube_id)]
     command = ' '.join(command)
-    print(command)
-#    print command
+    print command
     attempts = 0
     while True:
         try:
             output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as err:
-#            print youtube_id
-            print(youtube_id)
+            print youtube_id + ' is bad.'
+#            print(youtube_id)
             fo = open("bad_video.log","a")
             fo.write(youtube_id)
             fo.write("\n")
@@ -47,37 +41,19 @@ def download_job(youtube_id,
 
 def upload_job(youtube_id,path_bdnet):
     path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )
-#    command = ['bypy',               
-#               'upload',
-#               path,
-#               path_bdnet]
-#    command = ' '.join(command)
-    from bypy import ByPy
-    bp = ByPy()    
-    try:
-        #output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
+    from bypy import ByPy     
+    with ByPy() as bp:
         bp.upload(localpath=path, remotepath=path_bdnet, ondup=u'overwrite')
-    except subprocess.CalledProcessError as err:
-#        print youtube_id        
-        print(err+','+youtube_id)
- 
+        
 
 def del_job(youtube_id):
-    path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )
-    command = ['sudo',               
-               'rm',
-                path,
-               ]
-    command = ' '.join(command)
-    fo = open('bdnet.txt',"a")
-    fo.write(youtube_id)
-    fo.write("\n")
-    fo.close()
-    try:
-        output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError as err:
-#        print youtube_id
-        print(youtube_id)
+    path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )    
+    if os.path.exists(path):
+        with open('bdnet.txt',"a") as fo:
+            fo.write(youtube_id)
+            fo.write("\n")
+            fo.close()
+        os.remove(path)   
 
 def workjob(youtubeid,path):
     download_job(youtubeid)
@@ -88,5 +64,5 @@ def workjob(youtubeid,path):
 
 if __name__ == '__main__':
     path = 'tmp'
-    youtubeid = '--6bJUbfpnQ'
+    youtubeid = 'E_sjapo5bS8'
     workjob(youtubeid,path)
