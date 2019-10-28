@@ -12,33 +12,33 @@ youtube-dl -o 1.mp4 -f mp4 https://www.youtube.com/watch?v=--6bJUbfpnQ
 
 '''
 
-def download_job(youtube_id,
-	num_attempts=1,
-    url_base='https://www.youtube.com/watch?v='):  
-    path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )
-    
-    command = ['youtube-dl',               
-               '-f', 'mp4',
-               '-o', path,
-               '"%s"' % (url_base + youtube_id)]
-    command = ' '.join(command)
-    print command
-    attempts = 0
-    while True:
-        try:
-            output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
-        except subprocess.CalledProcessError as err:
-            print youtube_id + ' is bad.'
-#            print(youtube_id)
-            fo = open("bad_video.log","a")
-            fo.write(youtube_id)
-            fo.write("\n")
-            fo.close()
-            attempts += 1
-            if attempts == num_attempts:
-                return False#status, err.output
-            else:
-                break
+#def download_job(youtube_id,
+#	num_attempts=1,
+#    url_base='https://www.youtube.com/watch?v='):  
+#    path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )
+#    
+#    command = ['youtube-dl',               
+#               '-f', 'mp4',
+#               '-o', path,
+#               '"%s"' % (url_base + youtube_id)]
+#    command = ' '.join(command)
+#    print command
+#    attempts = 0
+#    while True:
+#        try:
+#            output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
+#        except subprocess.CalledProcessError as err:
+#            print youtube_id + ' is bad.'
+##            print(youtube_id)
+#            fo = open("bad_video.log","a")
+#            fo.write(youtube_id)
+#            fo.write("\n")
+#            fo.close()
+#            attempts += 1
+#            if attempts == num_attempts:
+#                return False#status, err.output
+#            else:
+#                break
 
 def download(youtube_id):    
     url_base='https://www.youtube.com/watch?v='
@@ -53,7 +53,9 @@ def download(youtube_id):
         ydl = youtube_dl.YoutubeDL(ydl_opts)
         ydl.download([download_url])
     except youtube_dl.utils.DownloadError,err:        
-        print err.args
+        for arg in err.args:
+            print arg
+
         fo = open("bad_video.log","a")
         fo.write(youtube_id)
         fo.write("\n")
