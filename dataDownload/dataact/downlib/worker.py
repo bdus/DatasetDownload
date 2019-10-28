@@ -4,6 +4,7 @@
 import os
 import subprocess
 from bypy import ByPy, const
+import youtube_dl
 
 '''
 python doanload3.py data/kinetics-400_test.csv download
@@ -38,7 +39,18 @@ def download_job(youtube_id,
                 return False#status, err.output
         else:
             break
-    #os.system( ' '.join(command) )    
+
+def download(youtube_id):    
+    url_base='https://www.youtube.com/watch?v='
+    path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )
+    download_url = '"%s"' % (url_base + youtube_id)
+    ydl_opts = {
+        # outtmpl 格式化下载后的文件名，避免默认文件名太长无法保存
+        'outtmpl': '%(id)s%(ext)s'
+    }
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([download_url])
+
 
 def chkok(by, result):
     ans = True
@@ -79,4 +91,5 @@ def workjob(youtubeid,path):
 if __name__ == '__main__':
     path = 'tmp'
     youtubeid = '--6bJUbfpnQ'
-    workjob(youtubeid,path)
+#    workjob(youtubeid,path)
+    download(youtube_id)
