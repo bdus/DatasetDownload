@@ -54,7 +54,10 @@ def download(youtube_id):
         ydl.download([download_url])
     except youtube_dl.utils.DownloadError,err:        
         print err.args
-    
+        fo = open("bad_video.log","a")
+        fo.write(youtube_id)
+        fo.write("\n")
+        fo.close()   
 
 
 def chkok(by, result):
