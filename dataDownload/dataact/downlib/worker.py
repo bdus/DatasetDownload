@@ -37,8 +37,8 @@ def download_job(youtube_id,
             attempts += 1
             if attempts == num_attempts:
                 return False#status, err.output
-        else:
-            break
+            else:
+                break
 
 def download(youtube_id):    
     url_base='https://www.youtube.com/watch?v='
@@ -49,8 +49,12 @@ def download(youtube_id):
         'format' : 'best',
         'outtmpl': 'tmp/%(id)s.%(ext)s'
     }
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+    try:
+        ydl = youtube_dl.YoutubeDL(ydl_opts)
         ydl.download([download_url])
+    except youtube_dl.utils.DownloadError,err:        
+        print err.args
+    
 
 
 def chkok(by, result):
