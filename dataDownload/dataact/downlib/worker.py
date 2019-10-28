@@ -57,8 +57,7 @@ def upload_job(youtube_id,path_bdnet):
     bp =  ByPy()  
     ans = bp.upload(localpath=path, remotepath=path_bdnet, ondup=u'overwrite')
     resp = chkok(bp,ans)
-    assert resp
-    print "Response: {}".format(bp.response.json())        
+    assert resp    
     if os.path.exists(path):
         with open('bdnet.txt',"a") as fo:
             fo.write(youtube_id)
