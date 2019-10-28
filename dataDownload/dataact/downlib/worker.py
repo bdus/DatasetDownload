@@ -3,6 +3,7 @@
 
 import os
 import subprocess
+from bypy import ByPy, const
 
 '''
 python doanload3.py data/kinetics-400_test.csv download
@@ -39,20 +40,35 @@ def download_job(youtube_id,
             break
     #os.system( ' '.join(command) )    
 
+def chkok(by, result):
+    ans = True
+	if by.processes == 1:
+		if result != const.ENoError:
+			print "Failed, result: {}".format(result)
+			ans = False
+	else:
+		if result != const.ENoError and result != const.IEFileAlreadyExists:
+			print "Failed, result: {}".format(result)
+			ans = False
+    return ans
+    
+            
 def upload_job(youtube_id,path_bdnet):
     path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )
-    from bypy import ByPy     
-    with ByPy() as bp:
-        bp.upload(localpath=path, remotepath=path_bdnet, ondup=u'overwrite')
-        
-
-def del_job(youtube_id):
-    path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )    
+    bp =  ByPy()  
+    ans = bp.upload(localpath=path, remotepath=path_bdnet, ondup=u'overwrite')
+    resp = chkok(bp,ans)
+    assert resp
+    print "Response: {}".format(bp.response.json())        
     if os.path.exists(path):
         with open('bdnet.txt',"a") as fo:
             fo.write(youtube_id)
             fo.write("\n")
             fo.close()
+
+def del_job(youtube_id):
+    path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )    
+    if os.path.exists(path):        
         os.remove(path)   
 
 def workjob(youtubeid,path):
