@@ -47,7 +47,7 @@ def download(youtube_id):
     ydl_opts = {
         # outtmpl 格式化下载后的文件名，避免默认文件名太长无法保存 http://www.yujzw.com/python/python-youtube-dl.html
         'format' : 'best',
-        'outtmpl': 'tmp/%(id)s%(ext)s'
+        'outtmpl': 'tmp/%(id)s.%(ext)s'
     }
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([download_url])
@@ -92,6 +92,6 @@ def workjob(youtubeid,path):
 if __name__ == '__main__':
     path = 'tmp'
     youtubeid = '--6bJUbfpnQ'
-    badid = 'hHiPEAiYKv0'
-    workjob(badid,path)
-#    download(youtubeid)
+    badid = 'x99PS_O6JW8'
+#    workjob(youtubeid,path)
+    download(badid)
