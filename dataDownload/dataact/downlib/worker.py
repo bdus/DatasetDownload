@@ -42,17 +42,16 @@ def download_job(youtube_id,
 
 def chkok(by, result):
     ans = True
-	if by.processes == 1:
-		if result != const.ENoError:
-			print "Failed, result: {}".format(result)
-			ans = False
-	else:
-		if result != const.ENoError and result != const.IEFileAlreadyExists:
-			print "Failed, result: {}".format(result)
-			ans = False
+    if by.processes == 1:
+        if result != const.ENoError:
+            print "Failed, result: {}".format(result)
+            ans = False
+    else:
+        if result != const.ENoError and result != const.IEFileAlreadyExists:
+            print "Failed, result: {}".format(result)
+            ans = False
     return ans
-    
-            
+
 def upload_job(youtube_id,path_bdnet):
     path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )
     bp =  ByPy()  
