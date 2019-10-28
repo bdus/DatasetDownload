@@ -50,11 +50,11 @@ def main(args):
 #    print args.input_file
 #    print args.output_dir
 #    print args.fmt
-#    print(args.input_file)
-#    print( args.output_dir)
-#    print( args.fmt)
     dataset = readSet(args.input_file,args.fmt)
-    for i in setOp(dataset):
+    if args.no_bad == False:
+        dataset = setOp(dataset)
+
+    for i in dataset:
         workjob(i,args.output_dir)
         print(i)
     
@@ -65,6 +65,7 @@ if __name__ == '__main__':
     p.add_argument('input_file',type=str, help=('input file name')) 
     p.add_argument('fmt',type=str,default='json',choices=['json','txt','csv'],help=('Input file format') ) 
     p.add_argument('output_dir',type=str, help=('Output directory where videos will be saved.') ) 
+    p.add_argument('--no_bad', '--force', default=False, action="store_true")
     #p.add_argument('-n', '--num-jobs', type=int, default=2)
     #main(**vars(p.parse_args() ) )
     main( p.parse_args() )
