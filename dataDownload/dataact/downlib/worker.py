@@ -43,11 +43,11 @@ def download_job(youtube_id,
 def chkok(by, result):
     ans = True
     if by.processes == 1:
-        if result != const.ENoError:
+        if result != const.ENoError and result != const.EHashMismatch:
             print "Failed, result: {}".format(result)
             ans = False
     else:
-        if result != const.ENoError and result != const.IEFileAlreadyExists:
+        if result != const.ENoError and result != const.IEFileAlreadyExists and result != const.EHashMismatch:
             print "Failed, result: {}".format(result)
             ans = False
     return ans
@@ -79,5 +79,5 @@ def workjob(youtubeid,path):
 
 if __name__ == '__main__':
     path = 'tmp'
-    youtubeid = 'E_sjapo5bS8'
+    youtubeid = '--6bJUbfpnQ'
     workjob(youtubeid,path)
