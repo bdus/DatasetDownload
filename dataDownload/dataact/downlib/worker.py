@@ -92,5 +92,6 @@ def workjob(youtubeid,path):
 if __name__ == '__main__':
     path = 'tmp'
     youtubeid = '--6bJUbfpnQ'
-    workjob(youtubeid,path)
+    badid = 'hHiPEAiYKv0'
+    workjob(badid,path)
 #    download(youtubeid)
