@@ -45,8 +45,9 @@ def download(youtube_id):
     path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )
     download_url = '"%s"' % (url_base + youtube_id)
     ydl_opts = {
-        # outtmpl 格式化下载后的文件名，避免默认文件名太长无法保存
-        'outtmpl': '%(id)s%(ext)s'
+        # outtmpl 格式化下载后的文件名，避免默认文件名太长无法保存 http://www.yujzw.com/python/python-youtube-dl.html
+        'format' : '1',
+        'outtmpl': 'tmp/%(id)s%(ext)s'
     }
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([download_url])
@@ -82,7 +83,7 @@ def del_job(youtube_id):
         os.remove(path)   
 
 def workjob(youtubeid,path):
-    download_job(youtubeid)
+    download(youtubeid)
     tmppath = os.path.join('tmp' ,''.join([youtubeid,".mp4"]) )
     if os.path.exists(tmppath) == True:
         upload_job(youtubeid,path)
@@ -91,5 +92,5 @@ def workjob(youtubeid,path):
 if __name__ == '__main__':
     path = 'tmp'
     youtubeid = '--6bJUbfpnQ'
-#    workjob(youtubeid,path)
-    download(youtube_id)
+    workjob(youtubeid,path)
+#    download(youtubeid)
