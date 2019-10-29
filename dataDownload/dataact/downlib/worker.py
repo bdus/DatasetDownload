@@ -52,10 +52,10 @@ def download(youtube_id):
     try:
         ydl = youtube_dl.YoutubeDL(ydl_opts)
         ydl.download([download_url])
-    except youtube_dl.utils.DownloadError,err:        
+    except youtube_dl.utils.DownloadError,err:
+        print 'ydl error!'
         for arg in err.args:
             print arg
-
         fo = open("bad_video.log","a")
         fo.write(youtube_id)
         fo.write("\n")
@@ -80,6 +80,7 @@ def upload_job(youtube_id,path_bdnet):
     path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )
     bp =  ByPy()
     try:
+        print 'download ok. uploading.'
         ans = bp.upload(localpath=path, remotepath=path_bdnet, ondup=u'overwrite')
         resp = chkok(bp,ans)
         print 'ans:'+str(ans)+';'
@@ -94,7 +95,8 @@ def upload_job(youtube_id,path_bdnet):
 def del_job(youtube_id):
     path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )    
     if os.path.exists(path):        
-        os.remove(path)   
+        os.remove(path)
+        print 'file exist. deleted'
 
 def workjob(youtubeid,path):
     download(youtubeid)
