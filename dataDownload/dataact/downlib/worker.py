@@ -47,13 +47,14 @@ def download(youtube_id):
     ydl_opts = {
         # outtmpl 格式化下载后的文件名，避免默认文件名太长无法保存 http://www.yujzw.com/python/python-youtube-dl.html
         'format' : 'best',
+        'quiet' : true,
         'outtmpl': 'tmp/%(id)s.%(ext)s'
     }
     try:
         ydl = youtube_dl.YoutubeDL(ydl_opts)
         ydl.download([download_url])
     except youtube_dl.utils.DownloadError,err:
-        print 'ydl error!'
+        print 'ydl error! Add to bad_video list.'
         for arg in err.args:
             print arg
         fo = open("bad_video.log","a")
