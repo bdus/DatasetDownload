@@ -7,7 +7,7 @@ Type=simple
 User=root
 Group=root
 WorkingDirectory=/root/Action-Recognition/dataDownload/dataact/
-ExecStart=/usr/bin/python cloud.py data/kinetics400/train.csv csv k400 | tee -a k400run.log
+ExecStart=bash run.sh
 Restart=always
 
 [Install]
