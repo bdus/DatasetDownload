@@ -67,27 +67,29 @@ def chkok(by, result):
     if by.processes == 1:
         if result != const.ENoError and result != const.EHashMismatch:
             print "Failed, result: {}".format(result)
+            print bp.response.json()
             ans = False
     else:
         if result != const.ENoError and result != const.IEFileAlreadyExists and result != const.EHashMismatch:
             print "Failed, result: {}".format(result)
+            print bp.response.json()
             ans = False
     return ans
 
 def upload_job(youtube_id,path_bdnet):
     path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )
-    bp =  ByPy()  
-    ans = bp.upload(localpath=path, remotepath=path_bdnet, ondup=u'overwrite')
-    resp = chkok(bp,ans)
-    print 'ans:'+str(ans)+';'
-    print bp.response.json()
-        #print i,j
-    #assert resp    
-    if os.path.exists(path):
-        with open('bdnet.txt',"a") as fo:
-            fo.write(youtube_id)
-            fo.write("\n")
-            fo.close()
+    bp =  ByPy()
+    try:
+        ans = bp.upload(localpath=path, remotepath=path_bdnet, ondup=u'overwrite')
+        resp = chkok(bp,ans)
+        print 'ans:'+str(ans)+';'
+        if os.path.exists(path):
+            with open('bdnet.txt',"a") as fo:
+                fo.write(youtube_id)
+                fo.write("\n")
+                fo.close()
+    except Exception,e:
+        print e        
 
 def del_job(youtube_id):
     path = os.path.join('tmp' ,''.join([youtube_id,".mp4"]) )    
