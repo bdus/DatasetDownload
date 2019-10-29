@@ -79,7 +79,10 @@ def upload_job(youtube_id,path_bdnet):
     bp =  ByPy()  
     ans = bp.upload(localpath=path, remotepath=path_bdnet, ondup=u'overwrite')
     resp = chkok(bp,ans)
-    assert resp    
+    print 'ans:'+str(ans)+';'
+    print bp.response.json()
+        #print i,j
+    #assert resp    
     if os.path.exists(path):
         with open('bdnet.txt',"a") as fo:
             fo.write(youtube_id)
@@ -102,5 +105,5 @@ if __name__ == '__main__':
     path = 'tmp'
     youtubeid = '--6bJUbfpnQ'
     badid = 'x99PS_O6JW8'
-#    workjob(youtubeid,path)
-    download(badid)
+    workjob(youtubeid,path)
+    #download(badid)
