@@ -46,15 +46,9 @@ def download(youtube_id):
     download_url = '%s' % (url_base + youtube_id)
     ydl_opts = {
         # outtmpl 格式化下载后的文件名，避免默认文件名太长无法保存 http://www.yujzw.com/python/python-youtube-dl.html
-<<<<<<< HEAD
-        'format' : 'best',
-        'quiet' : True,
-        'outtmpl': 'tmp/%(id)s.%(ext)s'
-=======
         'format' : 'best', 
         'quiet' : True,
         'outtmpl': u'tmp/%(id)s.%(ext)s'
->>>>>>> 80e5ccd6fb80ffc4cbac5adaae30f02b5c7bc604
     }
     try:
         ydl = youtube_dl.YoutubeDL(ydl_opts)
