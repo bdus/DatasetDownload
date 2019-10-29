@@ -47,7 +47,7 @@ def download(youtube_id):
     ydl_opts = {
         # outtmpl 格式化下载后的文件名，避免默认文件名太长无法保存 http://www.yujzw.com/python/python-youtube-dl.html
         'format' : 'best',
-        'quiet' : true,
+        'quiet' : True,
         'outtmpl': 'tmp/%(id)s.%(ext)s'
     }
     try:
