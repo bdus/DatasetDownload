@@ -56,7 +56,7 @@ def main(args):
 
     for i in dataset:
         workjob(i,args.output_dir)
-        print(i)
+#        print(i)
     
 
 if __name__ == '__main__':

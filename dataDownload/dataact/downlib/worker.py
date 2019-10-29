@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+from __future__ import unicode_literals
 import os
 import subprocess
 from bypy import ByPy, const
@@ -46,9 +46,9 @@ def download(youtube_id):
     download_url = '%s' % (url_base + youtube_id)
     ydl_opts = {
         # outtmpl 格式化下载后的文件名，避免默认文件名太长无法保存 http://www.yujzw.com/python/python-youtube-dl.html
-        'format' : 'best',
-        'quiet' : true,
-        'outtmpl': 'tmp/%(id)s.%(ext)s'
+        'format' : 'best', 
+        'quiet' : True,
+        'outtmpl': u'tmp/%(id)s.%(ext)s'
     }
     try:
         ydl = youtube_dl.YoutubeDL(ydl_opts)
