@@ -52,6 +52,7 @@ def download(youtube_id):
     }
     try:
         ydl = youtube_dl.YoutubeDL(ydl_opts)
+        print 'downloading ',youtube_id
         ydl.download([download_url])
     except youtube_dl.utils.DownloadError,err:
         print 'ydl error! Add to bad_video list.'
