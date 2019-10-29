@@ -92,6 +92,8 @@ def upload_job(youtube_id,path_bdnet):
                 fo.write("\n")
                 fo.close()
     except Exception,e:
+        print 'upload failed.'
+        print bp.response.json()
         print e        
 
 def del_job(youtube_id):

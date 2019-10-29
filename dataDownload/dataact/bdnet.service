@@ -1,0 +1,14 @@
+[Unit]
+Description=test deamon
+After=rc-local.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/root/Action-Recognition/dataDownload/dataact/
+ExecStart=/usr/bin/python cloud.py data/kinetics400/train.csv csv k400
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
