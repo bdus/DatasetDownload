@@ -44,6 +44,7 @@ class TheParty(object):
         # http://stackoverflow.com/a/27320254/404271
         # https://github.com/houtianze/bypy/blob/75a810df2d60048d5406a42666359d51339dcfdd/bypy/bypy.py#L119
         self.processes = 1
+        #OpenVZ failed install multiprocesses
         
             
     def _addID(self,youtube_id,filename):
@@ -114,8 +115,8 @@ class TheParty(object):
             print 'upload failed.'
             print self.bp.response.json()
             print e
-#            
-#    def _syncup(self):
+            
+#    def syncup(self):
 #        assert self.processes > 1
 #        try:
 #            uplist = os.listdir(self.LDlDir) ##a,b = os.path.splitext()
@@ -123,7 +124,7 @@ class TheParty(object):
 #            resp = self.chkok(ans)
 #            if resp:                
 #                self._addID(youtube_id,self.uploaded_video)
-#        
+##        
             
     def process(self,youtube_id):
         if len(self.dlqueue) < self.que_max: #如果队列够少，就继续下载;如果队列足够self.que_max，就开始上传
@@ -135,9 +136,9 @@ class TheParty(object):
             # upload and delete
             print '===== uploading... '
             for item in self.dlqueue: #.copy
-                fpath = os.path.join(self.LDlDir,''.join([youtube_id,'.',self.ext]) )
+                fpath = os.path.join(self.LDlDir,''.join([item,'.',self.ext]) )
                 assert os.path.exists(fpath)
-                ans = self.upload(youtube_id)
+                ans = self.upload(item)
                 if ans == True:
                     os.remove(fpath)
                     self.dlqueue.remove(item)
