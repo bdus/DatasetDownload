@@ -136,7 +136,6 @@ class TheParty(object):
 #            print 'upload failed.'
 #            print self.bp.response.json()
 #            print e
-
             
     def process(self,youtube_id):
         if len(self.dlqueue) < self.que_max: #如果队列够少，就继续下载;如果队列足够self.que_max，就开始上传
@@ -149,7 +148,10 @@ class TheParty(object):
             print '===== uploading... '
             for item in self.dlqueue: #.copy
                 fpath = os.path.join(self.LDlDir,''.join([item,'.',self.ext]) )
-                assert os.path.exists(fpath)
+                try:
+                    assert os.path.exists(fpath)
+                except Exception,e:
+                    print e               
                 ans = self.upload(item)
                 if ans == True:
                     os.remove(fpath)
