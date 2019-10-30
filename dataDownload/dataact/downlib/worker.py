@@ -130,7 +130,7 @@ class TheParty(object):
         else:
             # upload and delete
             print '===== uploading... '
-            for item in self.dlqueue.copy():
+            for item in self.dlqueue: #.copy
                 fpath = os.path.join(self.LDlDir,''.join([youtube_id,'.',self.ext]) )
                 assert os.path.exists(fpath)
                 ans = self.upload(youtube_id)
