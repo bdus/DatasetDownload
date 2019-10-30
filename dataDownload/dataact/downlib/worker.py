@@ -37,6 +37,10 @@ class TheParty(object):
     def _init(self):
         if not os.path.exists(self.LDlDir):
             os.mkdir(self.LDlDir)
+        else:
+            for item in os.listdir(self.LDlDir):
+                file,_ = os.path.splitext(item)
+                self.dlqueue.append(file)
         # http://stackoverflow.com/a/27320254/404271
         # https://github.com/houtianze/bypy/blob/75a810df2d60048d5406a42666359d51339dcfdd/bypy/bypy.py#L119
         self.processes = 1
