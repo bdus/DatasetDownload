@@ -96,7 +96,8 @@ class worker(object):
                 ans = False
         return ans
 
-    def upload(self,youtube_id):        
+    def upload(self,youtube_id):
+        fpath = os.path.join(self.LDlDir,''.join([youtube_id,'.',self.ext]) )
         try:
             ans = self.bp.upload(localpath=fpath, remotepath=self.RDir, ondup=u'overwrite')
             resp = self.chkok(ans)
