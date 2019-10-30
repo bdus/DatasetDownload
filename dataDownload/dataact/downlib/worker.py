@@ -11,7 +11,7 @@ python doanload3.py data/kinetics-400_test.csv download
 youtube-dl -o 1.mp4 -f mp4 https://www.youtube.com/watch?v=--6bJUbfpnQ
 
 '''
-class worker(object):
+class TheParty(object):
     def __init__(self,remote_path,localDlDir='tmp'):
         self.url_base='https://www.youtube.com/watch?v='
         self.ext = "mp4"
@@ -217,7 +217,7 @@ if __name__ == '__main__':
     badid = 'x99PS_O6JW8'
 #    workjob(youtubeid,path)
     #download(badid)
-    w = worker(path)
+    w = TheParty(path)
     w.process(youtubeid)
     w.upload(youtubeid)
     w.process(badid)

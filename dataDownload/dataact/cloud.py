@@ -12,7 +12,7 @@ import os
 from downlib.JsonLoader import readJsonSet
 from downlib.readCSV import readCSVSet
 from downlib.readTXT import readTXTSet
-from downlib.worker import workjob
+from downlib.worker import TheParty
 
 '''
 conda activate videodl
@@ -53,9 +53,10 @@ def main(args):
     dataset = readSet(args.input_file,args.fmt)
     if args.no_bad == False:
         dataset = setOp(dataset)
-
+        
+    aworker = TheParty(args.output_dir)    
     for i in dataset:
-        workjob(i,args.output_dir)
+        aworker.process(i)
 #        print(i)
     
 
