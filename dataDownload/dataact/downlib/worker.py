@@ -84,7 +84,7 @@ class worker(object):
             
     def _chkok(self,result):        
         ans = True
-        if by.processes == 1:
+        if self.bp.processes == 1:
             if result != const.ENoError and result != const.EHashMismatch:
                 print "Failed, result: {}".format(result)
                 print self.bp.response.json()
