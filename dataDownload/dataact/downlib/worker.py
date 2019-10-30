@@ -31,7 +31,8 @@ class worker(object):
         self.que_max = 20
         self._init()
         self.ydl = youtube_dl.YoutubeDL(self.ydl_opts)
-        self.bp =  ByPy(processes=self.processes)
+        self.bp = ByPy(processes=self.processes)
+        self.bp.info()
         
     def _init(self):
         if not os.path.exists(self.LDlDir):
@@ -81,18 +82,17 @@ class worker(object):
             print self.bp.response.json()
             print e 
             
-    def _chkok(self,result):
-        by = self.bp
+    def _chkok(self,result):        
         ans = True
         if by.processes == 1:
             if result != const.ENoError and result != const.EHashMismatch:
                 print "Failed, result: {}".format(result)
-                print bp.response.json()
+                print self.bp.response.json()
                 ans = False
         else:
             if result != const.ENoError and result != const.IEFileAlreadyExists and result != const.EHashMismatch:
                 print "Failed, result: {}".format(result)
-                print bp.response.json()
+                print self.bp.response.json()
                 ans = False
         return ans
 
@@ -107,18 +107,18 @@ class worker(object):
                 
         except Exception,e:
             print 'upload failed.'
-            print bp.response.json()
+            print self.bp.response.json()
             print e
-            
+#            
 #    def _syncup(self):
 #        assert self.processes > 1
 #        try:
-#            uplist = os.listdir(self.LDlDir)
+#            uplist = os.listdir(self.LDlDir) ##a,b = os.path.splitext()
 #            ans = self.bp.syncup(self.LDlDir,self.RDir)
 #            resp = self.chkok(ans)
 #            if resp:                
 #                self._addID(youtube_id,self.uploaded_video)
-        
+#        
             
     def process(self,youtube_id):
         if len(self.dlqueue) < self.que_max: #如果队列够少，就继续下载;如果队列足够self.que_max，就开始上传
@@ -218,4 +218,5 @@ if __name__ == '__main__':
     #download(badid)
     w = worker(path)
     w.process(youtubeid)
+    w.upload(youtubeid)
     w.process(badid)
