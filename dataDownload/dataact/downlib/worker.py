@@ -48,7 +48,7 @@ class worker(object):
         fo.close()
         
     def _ydl(self,youtube_id):        
-        download_url = '%s' % (url_base + youtube_id)
+        download_url = '%s' % (self.url_base + youtube_id)
         try:
             print 'downloading ',youtube_id
             self.ydl.download([download_url])
@@ -58,7 +58,7 @@ class worker(object):
                 print arg
             self._addID(youtube_id,self.bad_video)
             
-    def _download(self,youtube_id):
+    def download(self,youtube_id):
         self._ydl(youtube_id)
         fpath = os.path.join(self.LDlDir,''.join([youtube_id,'.',self.ext]) )
         return os.path.exists(fpath)
@@ -96,7 +96,7 @@ class worker(object):
                 ans = False
         return ans
 
-    def _upload(self,youtube_id):        
+    def upload(self,youtube_id):        
         try:
             ans = self.bp.upload(localpath=fpath, remotepath=self.RDir, ondup=u'overwrite')
             resp = self.chkok(ans)
@@ -108,24 +108,31 @@ class worker(object):
         except Exception,e:
             print 'upload failed.'
             print bp.response.json()
-            print e        
+            print e
+            
+#    def _syncup(self):
+#        assert self.processes > 1
+#        try:
+#            uplist = os.listdir(self.LDlDir)
+#            ans = self.bp.syncup(self.LDlDir,self.RDir)
+#            resp = self.chkok(ans)
+#            if resp:                
+#                self._addID(youtube_id,self.uploaded_video)
+        
             
     def process(self,youtube_id):
         if len(self.dlqueue) < self.que_max: #如果队列够少，就继续下载;如果队列足够self.que_max，就开始上传
             # download
             print '===== downloading... '
-            if self._download(youtube_id):
+            if self.download(youtube_id):
                 self.dlqueue.append(youtube_id)
-            else:
-                self._addID(youtube_id,self.bad_video)
-                raise Exception,'Downloaded file disappeared.WTF.'
         else:
             # upload and delete
             print '===== uploading... '
             for item in self.dlqueue.copy():
                 fpath = os.path.join(self.LDlDir,''.join([youtube_id,'.',self.ext]) )
                 assert os.path.exists(fpath)
-                ans = self._upload(youtube_id)
+                ans = self.upload(youtube_id)
                 if ans == True:
                     os.remove(fpath)
                     self.dlqueue.remove(item)
