@@ -100,7 +100,7 @@ class worker(object):
         fpath = os.path.join(self.LDlDir,''.join([youtube_id,'.',self.ext]) )
         try:
             ans = self.bp.upload(localpath=fpath, remotepath=self.RDir, ondup=u'overwrite')
-            resp = self.chkok(ans)
+            resp = self._chkok(ans)
             print 'ans:'+str(ans)+';'
             if resp:
                 self._addID(youtube_id,self.uploaded_video)
