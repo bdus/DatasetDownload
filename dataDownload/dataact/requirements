@@ -1,0 +1,17 @@
+bypy==1.6.6
+certifi==2019.9.11
+chardet==3.0.4
+dill==0.3.1.1
+dnspython==1.12.0
+idna==2.8
+multiprocess==0.70.9
+numpy==1.16.5
+pandas==0.24.2
+pycrypto==2.6.1
+python-dateutil==2.8.0
+pytz==2019.3
+requests==2.22.0
+requests-toolbelt==0.9.1
+six==1.12.0
+urllib3==1.25.6
+youtube-dl==2019.10.29
