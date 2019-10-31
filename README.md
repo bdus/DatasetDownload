@@ -1,7 +1,10 @@
 # Action-Recognition
 
 行为识别数据库的数据下载脚本
-一直下一直在改 dataDownload目录下有三个版本的
+
+一直下一直在改 
+
+dataDownload目录下有三个版本的
 
 >dataact
 大致思路是在vps上下载到本地 然后上传到百度云 然后再由百度云拉回来
