@@ -145,7 +145,7 @@ class TheParty(object):
                 self.dlqueue.append(youtube_id)
         else:
             # upload and delete
-            print '===== uploading... '
+            print '===== uploading... ',len(self.dlqueue)
             for item in self.dlqueue: #.copy
                 fpath = os.path.join(self.LDlDir,''.join([item,'.',self.ext]) )
                 try:
