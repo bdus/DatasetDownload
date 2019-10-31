@@ -110,8 +110,9 @@ class TheParty(object):
 
     def upload(self,youtube_id):
         fpath = os.path.join(self.LDlDir,''.join([youtube_id,'.',self.ext]) )
+        rfpath = os.path.join(self.RDir,''.join([youtube_id,'.',self.ext]) )
         try:
-            ans = self.bp.upload(localpath=fpath, remotepath=self.RDir, ondup=u'overwrite')
+            ans = self.bp.upload(localpath=fpath, remotepath=rfpath, ondup=u'overwrite')
             resp = self._chkok(ans)
             print 'ans:'+str(ans)+';'
             if resp:
@@ -173,10 +174,13 @@ class TheParty(object):
     def process(self):
         t1 = threading.Thread(target = self.worker_updel)
         t2 = threading.Thread(target = self.worker_download)#,args = (8,))
+        #t3 = threading.Thread(target = self.worker_updel)
         t1.start()
         t2.start()
+        #t3.start()
         t1.join()
         t2.join()
+        #t3.join()
                     
 
 def readSet(input_file,fmt):
