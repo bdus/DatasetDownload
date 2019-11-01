@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+__all__ = ['getDataset']
+
 import json
 # json reader http://activity-net.org/download.html
 

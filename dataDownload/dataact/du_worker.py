@@ -200,7 +200,7 @@ def readSet(input_file,fmt):
 def setOp(dataset): 
     #bad set
     #badfiles = ['bad_video.log','act100.txt','bdnet.txt']
-    badfiles = ['bad_video.log','act100.txt','act200.txt','k400.txt','bdnet.txt','bdnet_old.txt']
+    badfiles = ['bad_video.log','act.txt','k400.txt','bdnet.txt']
     badset = set()
     for badfile in badfiles:
         if os.path.exists(badfile) == True:
