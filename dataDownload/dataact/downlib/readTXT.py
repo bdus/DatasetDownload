@@ -20,10 +20,10 @@ if __name__ == '__main__':
     file = '../act100.txt'
     if os.path.exists(file) == True:
         records = readTXTSet(file)
-        print len(records)
+        #print len(records)
         #print(len(records))
         tmp = records.pop()
         records.add(tmp)
-        print tmp
+        #print tmp
         #print(tmp)
     
