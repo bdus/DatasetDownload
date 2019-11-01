@@ -148,7 +148,7 @@ class TheParty(object):
     def worker_updel(self):
         while len(self.dlqueue) > 0:
             item = self.dlqueue.pop()
-            print 'upload and delete ',item
+            print '=processing=',len(self.dlqueue),'--',item
             fpath = os.path.join(self.LDlDir,''.join([item,'.',self.ext]) )
             try:
                 assert os.path.exists(fpath)
@@ -159,17 +159,20 @@ class TheParty(object):
                 os.remove(fpath)
                 print str(item),' uploaded. deleted'
             else:
-                self.dlqueue.append(item)
+                #self.dlqueue.append(item)
+                print 'upload fail, skip ',item
                 continue
     
     def worker_download(self):
         while len(self.alldown) > 0:
-            if len(self.dlqueue) < self.que_max: #如果队列够少，就继续下载;如果队列足够self.que_max，就开始上传
+            if len(self.dlqueue) < self.que_max: #如果队列够少，就继续下载;上传
                 # download
                 item = self.alldown.pop()
-                print '===== downloading... ',item
+                print '=== remain ',len(self.alldown),'== downloading... ',item
                 if self.download(item):
                     self.dlqueue.append(item)
+            else:
+                time.sleep(1)
             
     def process(self):
         t1 = threading.Thread(target = self.worker_updel)
