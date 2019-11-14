@@ -51,14 +51,15 @@ def main(args):
 #    print args.output_dir
 #    print args.fmt
     dataset = readSet(args.input_file,args.fmt)
-    if args.no_bad == False:
-        dataset = setOp(dataset)
+    length = len(dataset)
+    #if args.no_bad == False:
+    dataset = setOp(dataset)
         
     #aworker = TheParty(args.output_dir)
-    for i in dataset:
-        workjob(i,args.output_dir)
+    for i,item in enumerate(dataset):
+        workjob(item,args.output_dir)
         #aworker.process(i)
-#        print(i)
+        print str((i+length-len(dataset))/length*100.0),'remain:',str(len(dataset)-i)
     
 
 if __name__ == '__main__':
